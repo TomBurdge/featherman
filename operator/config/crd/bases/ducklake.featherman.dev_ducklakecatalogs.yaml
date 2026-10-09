@@ -117,6 +117,10 @@ spec:
                 - credentialsSecret
                 - endpoint
                 type: object
+              restoreVersion:
+                description: RestoreVersion, if set, restores the catalog to a historical
+                  version
+                type: string
               size:
                 description: Size is the size of the catalog PVC
                 pattern: ^([0-9]+(\.[0-9]+)?)(E|P|T|G|M|K|Ei|Pi|Ti|Gi|Mi|Ki)$
@@ -125,6 +129,23 @@ spec:
                 description: StorageClass is the storage class to use for the catalog
                   PVC
                 type: string
+              versioning:
+                description: Versioning controls automatic metadata snapshotting
+                properties:
+                  enabled:
+                    default: false
+                    description: Enabled toggles versioning
+                    type: boolean
+                  retention:
+                    description: Retention defines how long to keep versions
+                    type: string
+                  strategy:
+                    default: snapshot
+                    description: Strategy determines versioning backend implementation
+                    type: string
+                required:
+                - enabled
+                type: object
             required:
             - objectStore
             - size
@@ -208,6 +229,23 @@ spec:
                 - Failed
                 - Succeeded
                 type: string
+              versionHistory:
+                description: VersionHistory lists recent catalog versions
+                items:
+                  description: VersionEntry represents a stored resource version
+                  properties:
+                    id:
+                      description: ID is the version identifier
+                      type: string
+                    timestamp:
+                      description: Timestamp records when the snapshot was taken
+                      format: date-time
+                      type: string
+                  required:
+                  - id
+                  - timestamp
+                  type: object
+                type: array
             type: object
         type: object
     served: true

@@ -55,6 +55,11 @@ const (
 	SQLTypeTimestamp SQLType = "TIMESTAMP"
 	// SQLTypeDecimal represents DECIMAL type
 	SQLTypeDecimal SQLType = "DECIMAL"
+	// SQLTypeDecimal represents UUID type
+	SQLTypeDecimal SQLType = "UUID"
+	// SQLTypeDecimal represents json type
+	SQLTypeDecimal SQLType = "json"
+
 )
 
 // CompressionType represents a Parquet compression type
@@ -86,7 +91,7 @@ type ColumnDefinition struct {
 
 	// Type is the SQL data type
 	// +kubebuilder:validation:Required
-	// +kubebuilder:validation:Enum=INTEGER;BIGINT;DOUBLE;BOOLEAN;VARCHAR;DATE;TIMESTAMP;DECIMAL
+	// +kubebuilder:validation:Enum=INTEGER;BIGINT;DOUBLE;BOOLEAN;VARCHAR;DATE;TIMESTAMP;DECIMAL;JSON;UUID
 	Type SQLType `json:"type"`
 
 	// Nullable specifies if the column can contain NULL values

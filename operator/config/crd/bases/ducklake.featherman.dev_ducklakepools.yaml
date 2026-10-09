@@ -97,6 +97,15 @@ spec:
                     format: int32
                     type: integer
                 type: object
+              maxQueryDuration:
+                default: 60s
+                description: MaxQueryDuration limits how long a query may run
+                type: string
+              maxRetries:
+                default: 3
+                description: MaxRetries defines how many times to retry failed queries
+                format: int32
+                type: integer
               maxSize:
                 default: 10
                 description: MaxSize is the maximum number of warm pods to maintain
@@ -122,6 +131,24 @@ spec:
                 format: int32
                 minimum: 0
                 type: integer
+              queue:
+                description: Queue configures request queueing
+                properties:
+                  maxLength:
+                    default: 100
+                    description: MaxLength is the maximum number of queued requests
+                    format: int32
+                    type: integer
+                  maxWaitTime:
+                    default: 30s
+                    description: MaxWaitTime is the maximum time a request may wait
+                      in the queue
+                    type: string
+                  policy:
+                    default: fifo
+                    description: Policy sets the queue policy (fifo or weighted)
+                    type: string
+                type: object
               scalingBehavior:
                 description: ScalingBehavior configures how the pool scales
                 properties:
